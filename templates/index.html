@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>R-AI Chatbot</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== FULL PAGE DARK MODE ===== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#000000,#020617,#0f172a);
+    color:white;
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* ===== HEADER ===== */
+
+header{
+    text-align:center;
+    padding:25px;
+}
+
+header h1{
+    color:#22c55e !important;
+    font-size:38px;
+    font-weight:700;
+    letter-spacing:2px;
+}
+
+header p{
+    color:#cbd5e1;
+    margin-top:8px;
+}
+
+
+/* ===== LOGO ===== */
+
+.logo-section{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:15px;
+}
+
+.logo{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    box-shadow:0 0 25px #22c55e;
+}
+
+
+/* ===== CHAT BOX ===== */
+
+.chat-container{
+    width:90%;
+    max-width:800px;
+    margin:auto;
+    flex:1;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:20px;
+}
+
+
+/* ===== MESSAGES ===== */
+
+.message{
+    padding:12px 15px;
+    margin:10px;
+    border-radius:15px;
+}
+
+.user{
+    background:#dc2626;
+    color:white;
+    text-align:right;
+    margin-left:80px;
+}
+
+
+.bot{
+    background:#2563eb;
+    color:white;
+    margin-right:80px;
+}
+
+/* ===== INPUT AREA ===== */
+
+.input-area{
+
+display:flex;
+align-items:center;
+gap:10px;
+padding:20px;
+
+}
+
+input{
+    flex:1;
+    padding:15px;
+    border-radius:25px;
+    border:none;
+    outline:none;
+}
+
+
+/* ===== FOOTER ===== */
+
+footer{
+    text-align:center;
+    padding:15px;
+    color:#22c55e;
+}
+
+
+/* FORCE GREEN TEXT */
+
+.green,
+.logo-section h1,
+.title,
+.brand,
+a,
+a:visited{
+    color:#22c55e !important;
+}
+
+/* ===== LIGHT MODE ===== */
+
+body.light{
+    background:linear-gradient(135deg,#ffffff,#dbeafe);
+    color:black;
+}
+
+
+body.light .chat-container{
+    background:rgba(0,0,0,0.08);
+}
+
+
+body.light header h1{
+    color:#16a34a !important;
+}
+
+
+body.light header p{
+    color:#334155;
+}
+
+
+body.light .bot{
+    background:#e2e8f0;
+    color:black;
+}
+
+
+body.light .user{
+    background:#60a5fa;
+    color:black;
+}
+
+
+body.light input{
+    background:white;
+    color:black;
+}
+
+
+body.light footer{
+    color:#16a34a;
+}
+.main{
+    width:90%;
+    max-width:800px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+}
+
+#chatbox{
+
+width:100%;
+min-height:400px;
+overflow-y:auto;
+padding:20px;
+
+}
+
+/* ===== RESTORE OLD LAYOUT ===== */
+
+.layout{
+    display:flex;
+    width:100%;
+    flex:1;
+}
+
+
+#sidebar{
+    width:250px;
+    padding:20px;
+    margin:20px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+}
+
+
+.main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+
+/* chat area */
+
+#chatbox{
+    width:90%;
+    max-width:800px;
+    flex:1;
+    overflow-y:auto;
+    padding:20px;
+}
+
+
+/* input and buttons back */
+
+#message{
+
+    width:70%;
+    padding:15px;
+    border-radius:25px;
+    border:none;
+    outline:none;
+
+}
+
+
+
+
+
+/* keep buttons separate */
+
+.send,
+.upload{
+
+    background:#22c55e;
+    color:black;
+
+}
+
+button{
+
+margin:5px;
+padding:12px 22px;
+border-radius:25px;
+border:none;
+background:#22c55e;
+color:black;
+cursor:pointer;
+font-weight:bold;
+
+}
+/* ===== BUTTON ROW FIX ===== */
+
+.main > button{
+    display:inline-flex;
+}
+
+
+.main{
+    align-items:center;
+}
+
+
+.input-area{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:90%;
+}
+
+
+.send,
+.upload{
+    width:auto !important;
+    flex:none;
+}
+
+/* ===== FIX BUTTONS IN ONE ROW ===== */
+
+/* ===== SCREEN RESTORE FIX ===== */
+
+/* ===== FINAL SCREEN FIT FIX ===== */
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+
+/* main page layout */
+
+.layout{
+    display:flex;
+    height:100vh;
+    width:100%;
+}
+
+
+/* sidebar */
+
+#sidebar{
+
+    width:250px;
+    height:100vh;
+
+    padding:20px;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    overflow-y:auto;
+}
+
+
+
+/* main chatbot area */
+
+.main{
+
+    flex:1;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    padding:10px;
+
+}
+
+
+
+/* logo */
+
+.logo-section{
+
+    flex-shrink:0;
+
+}
+
+
+.logo{
+
+    width:80px;
+    height:80px;
+
+}
+
+
+
+/* chat messages */
+
+#chatbox{
+
+    flex:1;
+
+    width:90%;
+    max-width:800px;
+
+    overflow-y:auto;
+
+    padding:15px;
+
+}
+
+
+
+/* input */
+
+#message{
+
+    width:70%;
+
+    height:40px;
+
+    flex-shrink:0;
+
+}
+
+
+
+/* buttons row */
+
+.button-container{
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-shrink:0;
+
+}
+
+
+
+.button-container button{
+
+    width:auto;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* footer */
+
+footer{
+
+    position:fixed;
+
+    bottom:0;
+
+    width:100%;
+
+    height:35px;
+
+}
+/* ===== HISTORY CHAT BOX FIX ===== */
+
+#history div{
+
+    background:rgba(255,255,255,0.12);
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    border-radius:15px;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    cursor:pointer;
+
+    color:white;
+
+    transition:0.3s;
+
+}
+
+
+#history div:hover{
+
+    transform:translateY(-2px);
+
+    background:rgba(255,255,255,0.2);
+
+}
+
+
+
+/* ===== LIGHT MODE HISTORY BOX ===== */
+
+
+body.light #history div{
+
+    background:#111827;
+
+    color:white;
+
+    border:1px solid #334155;
+
+}
+
+
+body.light #history div:hover{
+
+    background:#000000;
+
+}
+
+
+
+/* ===== USER MESSAGE PINK ===== */
+
+
+.user{
+
+    background:#e30976 !important;
+
+    color:white;
+
+}
+
+
+
+/* keep bot blue */
+
+.bot{
+
+    background:#2563eb;
+
+}
+
+/* ===== LIGHT MODE BOT MESSAGE ===== */
+
+body.light .bot{
+
+    background:#4f46e5 !important;
+
+    color:white;
+
+}
+
+
+
+/* ===== LIGHT MODE USER MESSAGE ===== */
+
+body.light .user{
+
+    background:#ec4899 !important;
+
+    color:white;
+
+}
+#history{
+
+    display:none;
+
+}
+
+.bot{
+
+line-height:1.8;
+
+font-size:16px;
+
+}
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="layout">
+
+
+
+<div id="sidebar">
+
+
+<button onclick="newChat()">
++ New Chat
+</button>
+
+
+<h3 onclick="toggleHistory()" style="cursor:pointer;">
+📂 History
+</h3>
+
+<p id="chatCount"
+style="
+text-align:center;
+color:#00e5ff;
+font-weight:bold;
+">
+Total Chats: 0
+</p>
+<input
+id="searchHistory"
+placeholder="🔍 Search chats..."
+onkeyup="searchHistory()"
+style="
+width:100%;
+padding:8px;
+margin-bottom:10px;
+border-radius:8px;
+border:none;
+outline:none;
+">
+
+<div id="history"></div>
+
+
+</div>
+
+
+
+
+<div class="main chat-container">
+
+
+<div class="logo-section">
+     <img src="{{ url_for('static', filename='logo.jpeg') }}" class="logo">
+</div>
+
+
+
+<div id="chatbox"></div>
+
+
+
+
+<input id="message" placeholder="Type your message here...">
+
+<div class="button-container">
+
+<button class="send" onclick="sendMessage()">
+Send
+</button>
+
+<button class="upload" onclick="clearChat()">
+🗑 Clear Chat
+</button>
+
+<button class="upload" onclick="exportChat()">
+📄 Export Chat
+</button>
+
+<button class="upload" onclick="startVoice()">
+🎤
+</button>
+
+<button class="upload" onclick="stopVoice()">
+⏹ Stop
+</button>
+
+<button class="upload" onclick="toggleTheme()">
+🌙 Light Mode
+</button>
+
+</div>
+
+<br><br>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+let chats =
+JSON.parse(localStorage.getItem("chats")) || [];
+
+
+let currentChat=[];
+let voiceInputUsed = false;
+
+
+loadHistory();
+showWelcomeMessage();
+if(localStorage.getItem("theme")=="light"){
+
+document.body.classList.add("light");
+
+}
+
+
+
+
+
+function saveData(){
+
+localStorage.setItem(
+"chats",
+JSON.stringify(chats)
+);
+
+}
+
+
+
+
+
+function loadHistory(){
+
+
+let history=document.getElementById("history");
+
+
+history.innerHTML="";
+
+
+chats.forEach((chat,index)=>{
+
+
+history.innerHTML +=
+
+`
+
+<div onclick="openChat(${index})">
+
+${chat.title}
+
+</div>
+
+`;
+
+});
+document.getElementById("chatCount").innerText =
+"Total Chats: " + chats.length;
+
+}
+
+
+
+
+
+function newChat(){
+
+currentChat=[];
+
+document.getElementById("chatbox").innerHTML="";
+
+showWelcomeMessage();
+
+}
+
+
+
+
+
+
+
+function openChat(index){
+
+let action = prompt(
+
+"Choose an option:\n\n1 = Open Chat\n2 = Edit Chat Name\n3 = Delete Chat"
+
+);
+
+if(action=="1"){
+
+currentChat = chats[index].messages;
+
+document.getElementById("chatbox").innerHTML="";
+
+currentChat.forEach(msg=>{
+
+document.getElementById("chatbox").innerHTML += msg;
+
+});
+
+}
+
+else if(action=="2"){
+
+let newTitle = prompt(
+
+"Enter new chat name:",
+
+chats[index].title
+
+);
+
+if(newTitle && newTitle.trim()!=""){
+
+chats[index].title = newTitle;
+
+saveData();
+
+loadHistory();
+
+}
+
+}
+
+else if(action=="3"){
+
+if(confirm("Delete this chat permanently?")){
+
+chats.splice(index,1);
+
+saveData();
+
+loadHistory();
+
+document.getElementById("chatbox").innerHTML="";
+
+currentChat=[];
+
+}
+
+}
+
+}
+
+
+
+
+function sendMessage(){
+voiceInputUsed = voiceInputUsed;
+let msg=document.getElementById("message").value;
+
+if(msg.trim()=="")
+return;
+
+
+
+let chatbox=document.getElementById("chatbox");
+
+
+
+let time = new Date().toLocaleTimeString([],{
+    hour:"2-digit",
+    minute:"2-digit"
+});
+
+
+let userHTML =
+
+`
+
+<div class="message user">
+
+<span>
+
+<b>You:</b> ${msg}
+
+<div class="time">
+${time}
+</div>
+
+</span>
+
+<div class="avatar">
+👤
+</div>
+
+</div>
+
+`;
+
+
+
+chatbox.innerHTML+=userHTML;
+
+
+currentChat.push(userHTML);
+
+
+
+document.getElementById("message").value="";
+
+
+
+
+
+fetch("/get?msg="+encodeURIComponent(msg))
+
+
+.then(response=>response.json())
+
+
+.then(data=>{
+
+
+
+let botHTML=
+
+`
+
+<div class="message bot">
+
+
+<div class="avatar">
+🤖
+</div>
+
+
+<span>
+
+<b>AI:</b><br>
+
+${formatAI(data.reply)}
+
+</span>
+
+
+</div>
+
+
+`;
+
+
+
+chatbox.innerHTML+=botHTML;
+
+
+currentChat.push(botHTML);
+
+
+
+if(currentChat.length === 2){
+
+    chats.push({
+
+        title: msg.substring(0,20),
+
+        messages: [...currentChat]
+
+    });
+
+}
+else{
+
+    chats[chats.length - 1].messages = [...currentChat];
+
+}
+
+
+
+saveData();
+
+
+loadHistory();
+
+
+
+chatbox.scrollTop=chatbox.scrollHeight;
+
+
+
+
+
+// 🔊 AI VOICE OUTPUT
+
+
+if(voiceInputUsed){
+
+let speech =
+new SpeechSynthesisUtterance(data.reply);
+
+
+speech.lang="en-US";
+
+speech.rate=1;
+
+speech.pitch=1;
+
+
+window.speechSynthesis.cancel();
+
+
+window.speechSynthesis.speak(speech);
+
+
+voiceInputUsed=false;
+
+}
+
+
+
+});
+
+
+}
+
+// 🎤 VOICE INPUT
+
+
+function startVoice(){
+
+
+let recognition =
+new webkitSpeechRecognition();
+
+
+
+recognition.lang="en-US";
+
+
+recognition.start();
+
+
+
+recognition.onresult=function(event){
+
+
+let text =
+event.results[0][0].transcript;
+
+
+
+document.getElementById("message").value=text;
+
+voiceInputUsed = true;
+sendMessage();
+
+
+}
+
+
+
+}
+
+
+
+
+
+document.getElementById("message")
+
+.addEventListener("keypress",function(e){
+
+
+if(e.key==="Enter")
+
+sendMessage();
+
+
+});
+
+
+function clearChat(){
+
+document.getElementById("chatbox").innerHTML="";
+
+currentChat=[];
+
+}
+
+function showWelcomeMessage(){
+
+if(document.getElementById("chatbox").innerHTML.trim()==""){
+
+document.getElementById("chatbox").innerHTML = `
+
+<div class="message bot">
+
+<div class="avatar">
+🤖
+</div>
+
+<span>
+
+<b>AI:</b><br>
+
+Hello Rashmitha 👋<br><br>
+
+I am your AI Assistant.<br>
+
+How can I help you today?
+
+</span>
+
+</div>
+
+`;
+
+}
+
+}
+
+function exportChat(){
+
+let text = document.getElementById("chatbox").innerText;
+
+let blob = new Blob([text], {type:"text/plain"});
+
+let a = document.createElement("a");
+
+a.href = URL.createObjectURL(blob);
+
+a.download = "chat_history.txt";
+
+a.click();
+
+}
+
+function searchHistory(){
+
+let input = document
+.getElementById("searchHistory")
+.value
+.toLowerCase();
+
+let historyItems =
+document.querySelectorAll("#history div");
+
+historyItems.forEach(item=>{
+
+if(item.innerText.toLowerCase().includes(input)){
+
+item.style.display="block";
+
+}
+else{
+
+item.style.display="none";
+
+}
+
+});
+
+}
+
+function toggleTheme(){
+
+let body = document.body;
+
+if(body.classList.contains("light")){
+
+body.classList.remove("light");
+
+localStorage.setItem("theme","dark");
+
+}
+else{
+
+body.classList.add("light");
+
+localStorage.setItem("theme","light");
+
+}
+
+}
+
+function toggleHistory(){
+
+let history = document.getElementById("history");
+
+if(history.style.display === "none"){
+
+    history.style.display = "block";
+
+}
+else{
+
+    history.style.display = "none";
+
+}
+
+}
+
+function stopVoice(){
+
+    window.speechSynthesis.cancel();
+
+} 
+function formatAI(text){
+
+return text
+
+.replace(/\n/g,"<br><br>")
+
+.replace(/=/g," = ");
+
+}
+</script>
+
+<footer>
+
+    🚀 Created by Rashmitha | Powered by Groq AI
+
+</footer>
+</body>
+
+</html>
