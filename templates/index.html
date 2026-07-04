@@ -406,19 +406,6 @@ html,body{
 
 
 /* input */
-
-#message{
-
-    width:70%;
-
-    height:40px;
-
-    flex-shrink:0;
-
-}
-
-
-
 /* buttons row */
 
 .button-container{
@@ -575,24 +562,34 @@ font-size:16px;
 
 .input-area{
     position:fixed;
-    bottom:15px;
-    left:280px;
-    right:20px;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:900px;
+
     display:flex;
     align-items:center;
     gap:10px;
+
+    background:#1e293b;
+    padding:10px;
+    border-radius:15px;
 }
 
-
-/* buttons beside textbox */
-
-.input-area button,
-.chat-input button{
-    height:50px;
+#message{
+    flex:1;
+    height:45px;
+    border:none;
+    outline:none;
+    border-radius:10px;
     padding:0 15px;
-    flex-shrink:0;
 }
 
+.input-area button{
+    height:45px;
+    padding:0 15px;
+}
 
 /* textbox width */
 
@@ -694,36 +691,23 @@ outline:none;
 
 
 
+<div class="input-area">
+
 <input id="message" placeholder="Type your message here...">
 
-<div class="button-container">
+<button class="send" onclick="sendMessage()">Send</button>
 
-<button class="send" onclick="sendMessage()">
-Send
-</button>
+<button onclick="clearChat()">🗑</button>
 
-<button class="upload" onclick="clearChat()">
-🗑 Clear Chat
-</button>
+<button onclick="exportChat()">📄</button>
 
-<button class="upload" onclick="exportChat()">
-📄 Export Chat
-</button>
+<button onclick="startVoice()">🎤</button>
 
-<button class="upload" onclick="startVoice()">
-🎤
-</button>
+<button onclick="stopVoice()">⏹</button>
 
-<button class="upload" onclick="stopVoice()">
-⏹ Stop
-</button>
-
-<button class="upload" onclick="toggleTheme()">
-🌙 Light Mode
-</button>
+<button onclick="toggleTheme()">🌙</button>
 
 </div>
-
 <br><br>
 
 
