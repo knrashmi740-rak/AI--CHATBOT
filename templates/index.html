@@ -240,13 +240,14 @@ padding:20px;
 /* input and buttons back */
 
 #message{
-
-    width:70%;
-    padding:15px;
+    width:100%;
+    max-width:700px;
+    height:48px;
+    padding:12px 16px;
     border-radius:25px;
     border:none;
     outline:none;
-
+    font-size:16px;
 }
 
 
@@ -328,20 +329,25 @@ html,body{
 /* sidebar */
 
 #sidebar{
+    position: fixed;
+    top: 0;
+    left: -260px;      /* Hidden initially */
+    width: 260px;
+    height: 100vh;
 
-    width:250px;
-    height:100vh;
+    background: #111827;
 
-    padding:20px;
+    padding: 20px;
 
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
+    transition: left 0.3s ease;
 
-    border-radius:20px;
+    z-index: 1500;
 
-    overflow-y:auto;
+    overflow-y: auto;
 }
-
+#sidebar.show{
+    left:0;
+}
 
 
 /* main chatbot area */
@@ -358,7 +364,7 @@ html,body{
 
     align-items:center;
 
-    padding:10px;
+    padding:20px;
 
 }
 
@@ -388,12 +394,12 @@ html,body{
 
     flex:1;
 
-    width:90%;
-    max-width:800px;
+    width:100%;
+    max-width:950px;
 
     overflow-y:auto;
 
-    padding:15px;
+    padding:20px;
 
 }
 
@@ -478,7 +484,6 @@ footer{
 
 }
 
-
 #history div:hover{
 
     transform:translateY(-2px);
@@ -493,20 +498,14 @@ footer{
 
 
 body.light #history div{
-
-    background:#111827;
-
-    color:white;
-
-    border:1px solid #334155;
-
+    background:#FFFFFF;   /* Soft cream / skin color */
+    color:#333333;
+    border:1px solid #DDDDDD;
 }
 
 
 body.light #history div:hover{
-
-    background:#000000;
-
+    background:#F3F4F6;
 }
 
 
@@ -566,6 +565,67 @@ line-height:1.8;
 font-size:16px;
 
 }
+
+/* FIX BIG MESSAGE BOX */
+
+
+
+
+/* FIX INPUT + BUTTONS AREA */
+
+.input-area{
+    position:fixed;
+    bottom:15px;
+    left:280px;
+    right:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+
+/* buttons beside textbox */
+
+.input-area button,
+.chat-input button{
+    height:50px;
+    padding:0 15px;
+    flex-shrink:0;
+}
+
+
+/* textbox width */
+
+
+body{
+    overflow:hidden;
+}
+#menuBtn{
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+#menuBtn{
+    color: white;
+    background: transparent;
+}
+body.light #menuBtn{
+    color: black;
+}
+body.light #menuBtn{
+    color: black;
+    background: rgba(0,0,0,0.08);
+}
 </style>
 
 
@@ -574,7 +634,7 @@ font-size:16px;
 
 <body>
 
-
+<button id="menuBtn">☰</button>
 <div class="layout">
 
 
@@ -1191,6 +1251,12 @@ return text
 .replace(/=/g," = ");
 
 }
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+
+menuBtn.onclick = function () {
+    sidebar.classList.toggle("show");
+};
 </script>
 
 <footer>
