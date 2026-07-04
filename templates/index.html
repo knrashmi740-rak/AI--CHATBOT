@@ -413,14 +413,14 @@ html,body{
 .button-container{
 
     display:flex;
-
+    
     flex-direction:row;
 
     justify-content:center;
 
     align-items:center;
 
-    gap:10px;
+    gap:8px;
 
     flex-shrink:0;
 
@@ -431,6 +431,8 @@ html,body{
 .button-container button{
 
     width:auto;
+     height:45px;
+    flex-shrink:0;
 
     white-space:nowrap;
 
@@ -564,28 +566,23 @@ font-size:16px;
 
 .input-area{
     position:fixed;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    max-width:900px;
-
+    bottom:15px;
+    left:0;
+    width:100%;
     display:flex;
     align-items:center;
-    gap:10px;
-
-    background:#1e293b;
+    gap:8px;
     padding:10px;
-    border-radius:15px;
+    box-sizing:border-box;
 }
 
 #message{
     flex:1;
+    min-width:0;
     height:45px;
-    border:none;
-    outline:none;
-    border-radius:10px;
-    padding:0 15px;
+    padding:10px;
+    border-radius:25px;
+    font-size:16px;
 }
 
 .input-area button{
@@ -624,6 +621,17 @@ body.light #menuBtn{
 body.light #menuBtn{
     color: black;
     background: rgba(0,0,0,0.08);
+}
+@media (max-width: 768px) {
+
+    .input-area{
+        padding:8px;
+    }
+
+    #message{
+        font-size:15px;
+    }
+
 }
 </style>
 
