@@ -72,6 +72,7 @@ header p{
     backdrop-filter:blur(10px);
     border-radius:20px;
     padding:20px;
+    min-height: 100vh;
 }
 
 
@@ -183,6 +184,7 @@ body.light footer{
     margin:auto;
     display:flex;
     flex-direction:column;
+    
 }
 
 #chatbox{
@@ -240,7 +242,7 @@ padding:20px;
 #message{
     width:80%;
     max-width:500px;
-    height:40px;
+    height:38px;
     padding:0px 15px;
     border-radius:20px;
     border:none;
@@ -248,13 +250,7 @@ padding:20px;
     font-size:16px;
 }
 
-
-
-
-
 /* keep buttons separate */
-
-.send,
 .upload{
 
     background:#22c55e;
@@ -286,8 +282,10 @@ font-weight:bold;
 }
 
 .send{
-    height:45px;
-    padding:0 20px;
+    height:38px;
+    padding:0 16px;
+    border-radius: 20px;
+
 }
 .upload{
     width:auto;
@@ -347,7 +345,7 @@ html,body{
     max-width:900px;
     flex:1;
 
-    height:100vh;
+    min-height:100vh;
 
     display:flex;
 
@@ -393,15 +391,15 @@ html,body{
 .button-container{
     display:flex;
     justify-content:center;
-    gap:6px;
+    gap:4px;
     flex-wrap:wrap;
 }
 .button-container button{
 
-    width:40px;
-    height:40px;
+    width:36px;
+    height:36px;
     flex-shrink:0;
-    font-size:18px;
+    font-size:16px;
 
     white-space:nowrap;
 
@@ -535,12 +533,14 @@ font-size:16px;
 
 .input-area{
     position: fixed;
-    bottom: 10px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 92%;
+    width: 95%;
     max-width: 700px;
-    z-index: 1000;
+    padding: 5px;
+    box-sizing: border-box;
+    z-index: 999;
 }
 body.light .input-area{
     background:#f8fafc;
