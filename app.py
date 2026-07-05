@@ -2,11 +2,18 @@ import os
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
 
+# =========================
+# Flask App
+# =========================
+
 app = Flask(__name__)
 
+conversation_history = []
+
 # =========================
-# Upload settings
+# Upload Folder
 # =========================
+
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -14,8 +21,9 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # =========================
-# Groq API
+# Groq Client
 # =========================
+
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
 )
@@ -23,6 +31,7 @@ client = Groq(
 # =========================
 # Home Page
 # =========================
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -30,6 +39,7 @@ def home():
 # =========================
 # Chat Route
 # =========================
+
 @app.route("/get")
 def chatbot():
 
@@ -53,12 +63,12 @@ def chatbot():
 You are R-AI, a multilingual AI assistant.
 
 Rules:
-- Detect the language automatically.
-- Reply in the same language the user uses.
+- Detect the user's language automatically.
+- Reply in the same language.
 - Support English, Kannada, Hindi, Tamil, Telugu and other languages.
 - If the user mixes languages, reply in the same mixed style.
-- Be polite, friendly and helpful.
-- Keep technical explanations simple and clear.
+- Be friendly, helpful and professional.
+- Explain technical concepts clearly.
 """
                 },
                 {
@@ -66,6 +76,7 @@ Rules:
                     "content": user_msg
                 }
             ]
+
         )
 
         reply = response.choices[0].message.content
@@ -75,14 +86,16 @@ Rules:
         })
 
     except Exception as e:
-        print("Groq Error:", e)
+
+        print("Groq Error:", repr(e))
 
         return jsonify({
-            "reply": "Sorry, I couldn't process your request. Please try again."
+            "reply": "Sorry, something went wrong. Please try again."
         })
 
 # =========================
 # Run App
 # =========================
+
 if __name__ == "__main__":
     app.run(debug=True)
