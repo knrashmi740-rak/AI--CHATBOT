@@ -95,18 +95,12 @@ header p{
     background:#2563eb;
     color:white;
     margin-right:80px;
+    max-width:60%;
+    padding:8px 12px;
+    height:200px;
 }
 
 /* ===== INPUT AREA ===== */
-
-.input-area{
-
-display:flex;
-align-items:center;
-gap:10px;
-padding:20px;
-
-}
 
 input{
     flex:1;
@@ -241,11 +235,11 @@ padding:20px;
 /* input and buttons back */
 
 #message{
-    width:100%;
-    max-width:700px;
-    height:48px;
-    padding:12px 16px;
-    border-radius:25px;
+    width:80%;
+    max-width:500px;
+    height:40px;
+    padding:0px 15px;
+    border-radius:20px;
     border:none;
     outline:none;
     font-size:16px;
@@ -288,20 +282,12 @@ font-weight:bold;
     align-items:center;
 }
 
-
-.input-area{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    width:90%;
+.send{
+    height:45px;
+    padding:0 20px;
 }
-
-
-.send,
 .upload{
-    width:auto !important;
+    width:auto;
     flex:none;
 }
 
@@ -379,17 +365,12 @@ html,body{
     flex-shrink:0;
 
 }
-
-
 .logo{
 
     width:80px;
     height:80px;
 
 }
-
-
-
 /* chat messages */
 
 #chatbox{
@@ -404,30 +385,12 @@ html,body{
     padding:20px;
 
 }
-
-
-
-/* input */
-/* buttons row */
-
 .button-container{
-
     display:flex;
-    
-    flex-direction:row;
-
     justify-content:center;
-
-    align-items:center;
-
-    gap:8px;
-
-    flex-shrink:0;
-
+    gap:10px;
+    flex-wrap:wrap;
 }
-
-
-
 .button-container button{
 
     width:auto;
@@ -565,23 +528,30 @@ font-size:16px;
 /* FIX INPUT + BUTTONS AREA */
 
 .input-area{
-    position:fixed;
-    bottom:15px;
-    left:0;
-    width:100%;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 700px;
+    z-index: 1000;
+}
+body.light .input-area{
+    background:#f8fafc;
+    border-top:1px solid #d1d5db;
+}
+.input-row{
     display:flex;
     align-items:center;
-    gap:8px;
-    padding:10px;
-    box-sizing:border-box;
+    gap:10px;
 }
-
 #message{
     flex:1;
-    min-width:0;
     height:45px;
-    padding:10px;
+    padding:0 15px;
     border-radius:25px;
+    border:none;
+    outline:none;
     font-size:16px;
 }
 
@@ -703,19 +673,27 @@ outline:none;
 
 <div class="input-area">
 
-<input id="message" placeholder="Type your message here...">
+    <div class="input-row">
 
-<button class="send" onclick="sendMessage()">Send</button>
+        <input id="message" placeholder="Type your message here...">
 
-<button onclick="clearChat()">🗑</button>
+        <button class="send" onclick="sendMessage()">Send</button>
 
-<button onclick="exportChat()">📄</button>
+    </div>
 
-<button onclick="startVoice()">🎤</button>
+    <div class="button-container">
 
-<button onclick="stopVoice()">⏹</button>
+        <button onclick="clearChat()">🗑</button>
 
-<button onclick="toggleTheme()">🌙</button>
+        <button onclick="exportChat()">📄</button>
+
+        <button onclick="startVoice()">🎤</button>
+
+        <button onclick="stopVoice()">⏹</button>
+
+        <button onclick="toggleTheme()">🌙</button>
+
+    </div>
 
 </div>
 <br><br>
