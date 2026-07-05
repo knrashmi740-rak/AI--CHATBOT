@@ -26,7 +26,6 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
-
 )
 
 # =========================

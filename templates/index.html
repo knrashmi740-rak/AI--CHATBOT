@@ -72,7 +72,6 @@ header p{
     backdrop-filter:blur(10px);
     border-radius:20px;
     padding:20px;
-    min-height: 100vh;
 }
 
 
@@ -93,14 +92,27 @@ header p{
 
 
 .bot{
-    background:#2563eb;
-    color:white;
-    margin-right:80px;
-    width:220px;
-    max-width:60%;
-    padding:8px 12px;
-    height:250px;
-    margin-top:5px;
+
+background:#2563eb;
+
+color:white;
+
+width:fit-content;
+
+max-width:80%;
+
+padding:10px 15px;
+
+margin-right:auto;
+
+height:auto;
+
+font-size:15px;
+
+line-height:1.6;
+
+word-wrap:break-word;
+
 }
 
 /* ===== INPUT AREA ===== */
@@ -191,9 +203,14 @@ body.light footer{
 
 width:100%;
 max-width:700px;
-min-height:400px;
+
+height:calc(100vh - 260px);
+
 overflow-y:auto;
-padding:20px;
+
+padding:15px;
+
+padding-bottom:120px;
 
 }
 
@@ -213,6 +230,7 @@ padding:20px;
     background:rgba(255,255,255,0.08);
     backdrop-filter:blur(10px);
     border-radius:20px;
+    margin-top:8px;
 }
 
 
@@ -282,9 +300,10 @@ font-weight:bold;
 }
 
 .send{
-    height:38px;
-    padding:0 16px;
+    height:42px;
+    padding:0 18px;
     border-radius: 20px;
+    font-size:15px;
 
 }
 .upload{
@@ -300,10 +319,9 @@ font-weight:bold;
 
 html,body{
     width:100%;
-    height:100%;
-    overflow:hidden;
+    min-height:100vh;
+    overflow-x:hidden;
 }
-
 
 /* main page layout */
 
@@ -341,20 +359,14 @@ html,body{
 /* main chatbot area */
 
 .main{
-     width:100%;
-    max-width:900px;
     flex:1;
-
-    min-height:100vh;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
-    padding:20px;
-
+    width:100%;
+    max-width:900px;
+    margin:auto;
+    height:100vh;
 }
 
 
@@ -377,32 +389,34 @@ html,body{
 /* chat messages */
 
 #chatbox{
-
     flex:1;
-
     width:100%;
-    max-width:950px;
-
+    max-width:700px;
     overflow-y:auto;
-
     padding:20px;
-
 }
 .button-container{
-    display:flex;
-    justify-content:center;
-    gap:4px;
-    flex-wrap:wrap;
+
+display:flex;
+
+justify-content:center;
+
+gap:8px;
+
+margin-top:8px;
+
+flex-wrap:wrap;
+
 }
 .button-container button{
-
-    width:36px;
-    height:36px;
-    flex-shrink:0;
-    font-size:16px;
-
-    white-space:nowrap;
-
+    width:34px;
+    height:24px;
+    border-radius:50%;
+    padding:0;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 
@@ -410,15 +424,9 @@ html,body{
 /* footer */
 
 footer{
-
-    position:fixed;
-
-    bottom:0;
-
-    width:100%;
-
-    height:35px;
-
+    text-align:center;
+    padding:10px;
+    color:#22c55e;
 }
 /* ===== HISTORY CHAT BOX FIX ===== */
 
@@ -532,15 +540,20 @@ font-size:16px;
 /* FIX INPUT + BUTTONS AREA */
 
 .input-area{
-    position: fixed;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    max-width: 700px;
-    padding: 5px;
-    box-sizing: border-box;
-    z-index: 999;
+
+    width:100%;
+    max-width:700px;
+
+    padding:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    background:transparent;
+
 }
 body.light .input-area{
     background:#f8fafc;
@@ -554,13 +567,17 @@ body.light .input-area{
     margin:auto;
 }
 #message{
-    flex:1;
-    height:45px;
-    padding:0 15px;
-    border-radius:25px;
-    border:none;
-    outline:none;
-    font-size:16px;
+
+flex:1;
+
+height:42px;
+
+padding:0 14px;
+
+font-size:14px;
+
+border-radius:22px;
+
 }
 
 .input-area button{
@@ -600,15 +617,44 @@ body.light #menuBtn{
     color: black;
     background: rgba(0,0,0,0.08);
 }
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-    .input-area{
-        padding:8px;
-    }
+.logo{
+    width:75px;
+    height:75px;
+}
 
-    #message{
-        font-size:15px;
-    }
+.bot{
+    max-width:85%;
+    font-size:14px;
+}
+
+.user{
+    max-width:85%;
+    font-size:14px;
+}
+
+#chatbox{
+    height:calc(100vh - 250px);
+    padding-bottom:130px;
+}
+
+#message{
+    font-size:14px;
+    height:40px;
+}
+
+.send{
+    height:40px;
+    padding:0 16px;
+}
+
+.button-container button{
+
+width:42px;
+height:42px;
+
+}
 
 }
 </style>
