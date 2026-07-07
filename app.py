@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
+from tavily import TavilyClient
 
 # =========================
 # Flask App
@@ -27,6 +28,9 @@ if not os.path.exists(UPLOAD_FOLDER):
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
 )
+tavily = TavilyClient(
+    api_key=os.environ.get("TAVILY_API_KEY")
+)
 
 # =========================
 # Home Page
@@ -44,6 +48,23 @@ def home():
 def chatbot():
 
     user_msg = request.args.get("msg")
+    web_context = ""
+
+    try:
+        search = tavily.search(
+           query=user_msg,
+           max_results=3
+        )
+
+        for item in search["results"]:
+           web_context += f"""
+    Title: {item['title']}
+    Content: {item['content']}
+    Source: {item['url']}
+
+    """
+    except:
+         pass
 
     if not user_msg:
         return jsonify({
@@ -72,9 +93,19 @@ Rules:
 """
                 },
                 {
-                    "role": "user",
-                    "content": user_msg
-                }
+    "role": "user",
+    "content": f"""
+User Question:
+{user_msg}
+
+Latest Web Search Results:
+{web_context}
+
+Instructions:
+- If the web search contains relevant information, use it to answer.
+- If the web search is not relevant or empty, answer using your own knowledge.
+"""
+}
             ]
 
         )
