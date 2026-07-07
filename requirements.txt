@@ -3,3 +3,4 @@ groq
 Pillow
 Werkzeug
 gunicorn
+tavily-python
