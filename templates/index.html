@@ -657,6 +657,31 @@ height:42px;
 }
 
 }
+#toast{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#323232;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:15px;
+    opacity:0;
+    transition:0.3s;
+    z-index:9999;
+    pointer-events:none;
+}
+
+#toast.show{
+    opacity:1;
+    top:40px;
+}
+
+body.light #toast{
+    background:#222;
+    color:white;
+}
 </style>
 
 
@@ -745,7 +770,7 @@ outline:none;
 
         <button onclick="stopVoice()">⏹</button>
 
-        <button onclick="toggleTheme()">🌙</button>
+        <button id="themeBtn" onclick="toggleTheme()">🌙</button>
 
     </div>
 
@@ -765,7 +790,7 @@ outline:none;
 
 
 
-
+<div id="toast"></div>
 <script>
 
 
@@ -781,7 +806,12 @@ loadHistory();
 showWelcomeMessage();
 if(localStorage.getItem("theme")=="light"){
 
-document.body.classList.add("light");
+    document.body.classList.add("light");
+    document.getElementById("themeBtn").innerHTML = "☀️";
+
+}else{
+
+    document.getElementById("themeBtn").innerHTML = "🌙";
 
 }
 
@@ -917,14 +947,30 @@ currentChat=[];
 }
 
 
+function showToast(message){
 
+    let toast = document.getElementById("toast");
+
+    toast.innerHTML = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2000);
+
+}
 
 function sendMessage(){
 voiceInputUsed = voiceInputUsed;
 let msg=document.getElementById("message").value;
 
-if(msg.trim()=="")
-return;
+if(msg.trim()==""){
+    showToast("⚠️ Please type a message.");
+    return;
+}
 
 
 
@@ -1088,46 +1134,36 @@ voiceInputUsed=false;
 }
 
 // 🎤 VOICE INPUT
-
-
 function startVoice(){
 
+    showToast("🎤 Please speak...");
 
-let recognition =
-new webkitSpeechRecognition();
+    if(!('webkitSpeechRecognition' in window)){
 
+        showToast("❌ Voice recognition is not supported in this browser.");
+        return;
 
+    }
 
-recognition.lang="en-US";
+    let recognition = new webkitSpeechRecognition();
 
+    recognition.lang = "en-US";
 
-recognition.start();
+    recognition.start();
 
+    recognition.onresult = function(event){
 
+        let text = event.results[0][0].transcript;
 
-recognition.onresult=function(event){
+        document.getElementById("message").value = text;
 
+        voiceInputUsed = true;
 
-let text =
-event.results[0][0].transcript;
+        sendMessage();
 
-
-
-document.getElementById("message").value=text;
-
-voiceInputUsed = true;
-sendMessage();
-
-
-}
-
-
+    };
 
 }
-
-
-
-
 
 document.getElementById("message")
 
@@ -1144,12 +1180,26 @@ sendMessage();
 
 function clearChat(){
 
-document.getElementById("chatbox").innerHTML="";
+    if(currentChat.length === 0){
 
-currentChat=[];
+        showToast("🗑️ Nothing to delete. Start a conversation first.");
+        return;
+
+    }
+
+    if(confirm("Are you sure you want to clear this chat?")){
+
+        document.getElementById("chatbox").innerHTML = "";
+
+        currentChat = [];
+
+        showWelcomeMessage();
+
+        showToast("✅ Chat cleared successfully.");
+
+    }
 
 }
-
 function showWelcomeMessage(){
 
 if(document.getElementById("chatbox").innerHTML.trim()==""){
@@ -1166,11 +1216,11 @@ document.getElementById("chatbox").innerHTML = `
 
 <b>AI:</b><br>
 
-Hello Rashmitha 👋<br><br>
+Hii there 👋<br><br>
+
+Welcome to <b>R-AI</b>.<br><br>
 
 I am your AI Assistant.<br>
-
-How can I help you today?
 
 </span>
 
@@ -1184,17 +1234,26 @@ How can I help you today?
 
 function exportChat(){
 
-let text = document.getElementById("chatbox").innerText;
+    if(currentChat.length === 0){
 
-let blob = new Blob([text], {type:"text/plain"});
+        showToast("📄 Nothing to export. Start a conversation first.");
+        return;
 
-let a = document.createElement("a");
+    }
 
-a.href = URL.createObjectURL(blob);
+    let text = document.getElementById("chatbox").innerText;
 
-a.download = "chat_history.txt";
+    let blob = new Blob([text], {type:"text/plain"});
 
-a.click();
+    let a = document.createElement("a");
+
+    a.href = URL.createObjectURL(blob);
+
+    a.download = "chat_history.txt";
+
+    a.click();
+
+    showToast("✅ Chat exported successfully.");
 
 }
 
@@ -1227,25 +1286,28 @@ item.style.display="none";
 
 function toggleTheme(){
 
-let body = document.body;
+    let body = document.body;
+    let themeBtn = document.getElementById("themeBtn");
 
-if(body.classList.contains("light")){
+    if(body.classList.contains("light")){
 
-body.classList.remove("light");
+        body.classList.remove("light");
+        localStorage.setItem("theme","dark");
+        themeBtn.innerHTML = "🌙";
 
-localStorage.setItem("theme","dark");
+        showToast("🌙 You are now in Dark Mode.");
+
+    }else{
+
+        body.classList.add("light");
+        localStorage.setItem("theme","light");
+        themeBtn.innerHTML = "☀️";
+
+        showToast("☀️ You are now in Light Mode.");
+
+    }
 
 }
-else{
-
-body.classList.add("light");
-
-localStorage.setItem("theme","light");
-
-}
-
-}
-
 function toggleHistory(){
 
 let history = document.getElementById("history");
@@ -1265,9 +1327,18 @@ else{
 
 function stopVoice(){
 
-    window.speechSynthesis.cancel();
+    if(window.speechSynthesis.speaking){
 
-} 
+        window.speechSynthesis.cancel();
+        showToast("🔇 Voice output stopped.");
+
+    }else{
+
+        showToast("⚠️ No voice is playing.");
+
+    }
+
+}
 function formatAI(text){
 
 return text
